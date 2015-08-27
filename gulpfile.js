@@ -65,11 +65,15 @@ function bundle() {
 
 gulp.task('serve-sass', function() {
 	return gulp.src('styles/**/*.{scss,sass}')
-	.pipe(rename(function(p) {
-		p.extname += p.extname;
-	}))
 	.pipe(sass({
 		errLogToConsole: true
+	}).on('error', sass.logError))
+	.on('error', function(err) {
+		console.log(err);
+	})
+	.pipe(rename(function(p) {
+		p.basename += '.sass';
+		p.extname = '.css';
 	}))
 	.pipe(gulp.dest(path.join('styles')));
 });
@@ -125,11 +129,15 @@ gulp.task('sass', ['copy'], function() {
 	var argv = validateCli();
 
 	var pi = gulp.src('styles/**/*.{scss,sass}')
-	.pipe(rename(function(p) {
-		p.extname += p.extname;
-	}))
 	.pipe(sass({
 		errLogToConsole: true
+	}).on('error', sass.logError))
+	.on('error', function(err) {
+		console.log(err);
+	})
+	.pipe(rename(function(p) {
+		p.basename += '.sass';
+		p.extname = '.css';
 	}));
 	if(argv.min) {
 		pi.pipe(minifyCss({compatibility: 'ie8'}));
