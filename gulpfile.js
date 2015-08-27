@@ -75,6 +75,13 @@ gulp.task('serve-sass', function() {
 		p.basename += '.sass';
 		p.extname = '.css';
 	}))
+	.on('error', function(err) {
+		console.log(err);
+	})
+	.pipe(rename(function(p) {
+		p.basename += '.sass';
+		p.extname = '.css';
+	}))
 	.pipe(gulp.dest(path.join('styles')));
 });
 
