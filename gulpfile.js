@@ -73,6 +73,7 @@ gulp.task('serve-sass', function() {
 	})
 	.pipe(rename(function(p) {
 		p.basename += '.sass';
+		p.extname = '.css';
 	}))
 	.pipe(gulp.dest(path.join('styles')));
 });
@@ -136,6 +137,7 @@ gulp.task('sass', ['copy'], function() {
 	})
 	.pipe(rename(function(p) {
 		p.basename += '.sass';
+		p.extname = '.css';
 	}));
 	if(argv.min) {
 		pi.pipe(minifyCss({compatibility: 'ie8'}));
